@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -17,14 +17,11 @@
 </head>
 
 <body data-theme="winter-horror">
-    <!-- ATMOPSHERIC OVERLAYS -->
     <div class="ice-glow"></div>
     <div class="scanlines"></div>
 
-    <!-- Snow Particle Canvas -->
     <canvas id="snowCanvas"></canvas>
 
-    <!-- NAVIGATION -->
     <nav class="nav" id="mainNav">
         <div class="container nav-inner">
             <a href="#" class="nav-logo">
@@ -46,7 +43,6 @@
         </div>
     </nav>
 
-    <!-- MOBILE MENU -->
     <div class="mobile-menu" id="mobileMenu">
         <ul>
             <li><a href="#about" onclick="closeMobile()">About</a></li>
@@ -56,12 +52,10 @@
         </ul>
     </div>
 
-    <!-- HERO -->
     <section class="hero" id="home">
         <div class="hero-bg-overlay"></div>
         <div class="container hero-container">
             <div class="hero-content">
-                <!-- Badge removed -->
                 <h1 class="hero-title">
                     Combat<span class="title-accent">Runner</span>
                 </h1>
@@ -92,7 +86,6 @@
         </div>
     </section>
 
-    <!-- ABOUT -->
     <section class="about section-pad" id="about">
         <div class="container">
             <div class="section-header">
@@ -160,7 +153,6 @@
         </div>
     </section>
 
-    <!-- SCREENSHOTS -->
     <section class="screenshots section-pad" id="screenshots">
         <div class="container">
             <div class="section-header">
@@ -169,7 +161,6 @@
                 <p>Every world is hand-crafted, pixel by pixel. These are real in-game moments.</p>
             </div>
             <div class="gallery">
-                <!-- Main viewer -->
                 <div class="gallery-viewer">
                     <div class="gallery-info-bar">
                         <div class="gallery-label">
@@ -186,7 +177,6 @@
                             <h3 id="zoneLabel">ANCIENT RUINS</h3>
                         </div>
                     </div>
-                    <!-- Arrow nav -->
                     <button class="gallery-arrow arrow-prev" id="galleryPrev" onclick="galleryNav(-1)" aria-label="Previous">
                         <svg width="20" height="20" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
                             <polyline points="15 18 9 12 15 6"></polyline>
@@ -199,7 +189,6 @@
                     </button>
                 </div>
 
-                <!-- Thumbnails -->
                 <div class="gallery-thumbs">
                     <div class="thumb-item active" onclick="switchShot(0)" data-zone="ANCIENT RUINS" data-index="0">
                         <div class="thumb-num">01</div>
@@ -226,7 +215,6 @@
         </div>
     </section>
 
-    <!-- FEATURES -->
     <section class="features section-pad" id="features">
         <div class="container">
             <div class="section-header">
@@ -275,7 +263,6 @@
         </div>
     </section>
 
-    <!-- DOWNLOAD -->
     <section class="download-section section-pad" id="download">
         <div class="download-bg-glow"></div>
         <div class="container container-narrow">
@@ -327,7 +314,6 @@
         </div>
     </section>
 
-    <!-- FOOTER -->
     <footer class="footer">
         <div class="container">
             <div class="footer-top">
@@ -349,17 +335,16 @@
         </div>
     </footer>
 
-    <!-- DOWNLOAD TOAST -->
     <div class="toast" id="downloadToast">
         <svg width="20" height="20" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
             <polyline points="20 6 9 17 4 12"></polyline>
         </svg>
-        <span>Download başlatılıyor…</span>
+        <span>Download starting...</span>
     </div>
 
     <script src="snow.js"></script>
     <script src="main.js"></script>
-<script defer="" src="beacon.min.js/v8c78df7c7c0f484497ecbca7046644da1771523124516" integrity="sha512-8DS7rgIrAmghBFwoOTujcf6D9rXvH8xm8JQ1Ja01h9QX8EzXldiszufYa4IFfKdLUKTTrnSFXLDkUEOTrZQ8Qg==" data-cf-beacon='{"version":"2024.11.0","token":"897596ef2906461391ed2f7e1b0f5d52","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+    <script defer="" src="beacon.min.js/v8c78df7c7c0f484497ecbca7046644da1771523124516" integrity="sha512-8DS7rgIrAmghBFwoOTujcf6D9rXvH8xm8JQ1Ja01h9QX8EzXldiszufYa4IFfKdLUKTTrnSFXLDkUEOTrZQ8Qg==" data-cf-beacon='{"version":"2024.11.0","token":"897596ef2906461391ed2f7e1b0f5d52","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
 </body>
 
 </html>

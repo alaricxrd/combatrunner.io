@@ -1,8 +1,3 @@
-/* ============================================================
-   FROSTBLADE — snow.js
-   Animated snow particle system on canvas
-   ============================================================ */
-
 (function () {
     const canvas = document.getElementById('snowCanvas');
     if (!canvas) return;
@@ -44,7 +39,7 @@
         flakes = [];
         for (let i = 0; i < CONFIG.count; i++) {
             const f = randomFlake();
-            f.y = Math.random() * H; // spread on load
+            f.y = Math.random() * H;
             flakes.push(f);
         }
     }
