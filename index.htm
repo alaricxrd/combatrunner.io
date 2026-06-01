@@ -1,0 +1,365 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="CombatRunner – CombatRunner is a narrative-driven puzzle platformer set in a fading, fractured world. Lead three lost spirits through peril and mystery as they struggle to survive and uncover the truth behind their destiny. Download now.">
+    <meta name="keywords" content="2d action game, pixel art, platformer, CombatRunner, indie game, free download">
+    <meta property="og:title" content="CombatRunner – 2D Action Platformer">
+    <meta property="og:description" content="CombatRunner is a narrative-driven puzzle platformer set in a fading, fractured world. Lead three lost spirits through peril and mystery as they struggle to survive and uncover the truth behind their destiny.">
+    <meta property="og:image" content="oyunpp3.png">
+    <title>CombatRunner – 2D Action Platformer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="css2?family=Press+Start+2P&family=VT323&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body data-theme="winter-horror">
+    <!-- ATMOPSHERIC OVERLAYS -->
+    <div class="ice-glow"></div>
+    <div class="scanlines"></div>
+
+    <!-- Snow Particle Canvas -->
+    <canvas id="snowCanvas"></canvas>
+
+    <!-- NAVIGATION -->
+    <nav class="nav" id="mainNav">
+        <div class="container nav-inner">
+            <a href="#" class="nav-logo">
+                Combat<span class="title-accent">Runner</span>
+            </a>
+
+            <ul class="nav-links">
+                <li><a href="#about">ABOUT</a></li>
+                <li><a href="#screenshots">SCREENSHOTS</a></li>
+                <li><a href="#features">FEATURES</a></li>
+                <li><a href="#download" class="nav-cta">DOWNLOAD</a></li>
+            </ul>
+
+            <button class="hamburger" id="hamburger" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- MOBILE MENU -->
+    <div class="mobile-menu" id="mobileMenu">
+        <ul>
+            <li><a href="#about" onclick="closeMobile()">About</a></li>
+            <li><a href="#screenshots" onclick="closeMobile()">Screenshots</a></li>
+            <li><a href="#features" onclick="closeMobile()">Features</a></li>
+            <li><a href="#download" onclick="closeMobile()">Download</a></li>
+        </ul>
+    </div>
+
+    <!-- HERO -->
+    <section class="hero" id="home">
+        <div class="hero-bg-overlay"></div>
+        <div class="container hero-container">
+            <div class="hero-content">
+                <!-- Badge removed -->
+                <h1 class="hero-title">
+                    Combat<span class="title-accent">Runner</span>
+                </h1>
+                <p class="hero-tagline">ATMOSPHERIC PIXEL HORROR</p>
+                <p class="hero-desc">
+                    Descend into the pixelated abyss. Control the Dark Wizard through cursed forests,
+                    shattered realms, and haunting memories. A retro-synthwave odyssey.
+                </p>
+
+                <div class="hero-btns">
+                    <button class="btn-primary" onclick="triggerDownload()">
+                        <svg width="20" height="20" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"></path>
+                            <polyline points="7 10 12 15 17 10"></polyline>
+                            <line x1="12" y1="15" x2="12" y2="3"></line>
+                        </svg>
+                        DOWNLOAD
+                    </button>
+                </div>
+            </div>
+
+            <div class="hero-visual">
+                <div class="hero-img-frame">
+                    <img src="oyunpp3.png" alt="CombatRunner Gameplay" class="hero-main-img">
+                    <div class="img-glow"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="about section-pad" id="about">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-tag">THE STORY</div>
+                <h2>One Warrior. A Fractured World.</h2>
+                <p>In a collapsing future, the last operative fights through corrupted zones to reclaim what remains of
+                    civilization. Fast combat. Punishing enemies. Zero mercy.</p>
+            </div>
+            <div class="about-grid">
+                <div class="about-card" data-delay="0" style="--i: 0">
+                    <div class="card-icon">
+                        <svg width="44" height="44" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="14.5 17.5 3 6 3 3 6 3 17.5 14.5"></polyline>
+                            <line x1="13" y1="19" x2="19" y2="13"></line>
+                            <line x1="16" y1="16" x2="20" y2="20"></line>
+                            <line x1="19" y1="21" x2="20" y2="20"></line>
+                            <line x1="15" y1="15" x2="16" y2="16"></line>
+                        </svg>
+                    </div>
+                    <h3>Fluid Combat</h3>
+                    <p>Chain slashes, dodges, and energy blasts in a seamless flow. Every encounter is a test of skill.
+                    </p>
+                </div>
+                <div class="about-card" data-delay="100" style="--i: 1">
+                    <div class="card-icon">
+                        <svg width="44" height="44" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="2" y1="12" x2="22" y2="12"></line>
+                            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z">
+                            </path>
+                        </svg>
+                    </div>
+                    <h3>4 Unique Combat</h3>
+                    <p>From icy server vaults to lava-filled ruins and cyberpunk cityscapes — each world has its own
+                        rules.</p>
+                </div>
+                <div class="about-card" data-delay="200" style="--i: 2">
+                    <div class="card-icon">
+                        <svg width="44" height="44" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M10 20H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v10"></path>
+                            <path d="M8 20l4-4 4 4"></path>
+                            <path d="M15 20h5a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2h5"></path>
+                            <circle cx="8" cy="10" r="2"></circle>
+                            <circle cx="16" cy="10" r="2"></circle>
+                        </svg>
+                    </div>
+                    <h3>30+ Enemy Types</h3>
+                    <p>Drones, mechs, golems, and apex bosses — each with distinct attack patterns and behaviors.</p>
+                </div>
+                <div class="about-card" data-delay="300" style="--i: 3">
+                    <div class="card-icon">
+                        <svg width="44" height="44" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path>
+                            <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path>
+                            <path d="M4 22h16"></path>
+                            <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"></path>
+                            <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"></path>
+                            <path d="M18 2H6v7a6 6 0 0 0 12 0V2z"></path>
+                        </svg>
+                    </div>
+                    <h3>Challenge System</h3>
+                    <p>Time trials, no-hit runs, and hidden paths. Completionists will find a true test of mastery.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SCREENSHOTS -->
+    <section class="screenshots section-pad" id="screenshots">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-tag">GAMEPLAY</div>
+                <h2>See the Action</h2>
+                <p>Every world is hand-crafted, pixel by pixel. These are real in-game moments.</p>
+            </div>
+            <div class="gallery">
+                <!-- Main viewer -->
+                <div class="gallery-viewer">
+                    <div class="gallery-info-bar">
+                        <div class="gallery-label">
+                            <span class="label-dot pulse"></span>
+                            IN-GAME FOOTAGE
+                        </div>
+                        <div class="gallery-pager">
+                            <span id="slideCounter">01 / 04</span>
+                        </div>
+                    </div>
+                    <div class="gallery-img-wrap" id="mainShot">
+                        <img src="oyunpp.png" alt="Ancient Ruins level" id="activeShot" loading="lazy">
+                        <div class="gallery-caption">
+                            <h3 id="zoneLabel">ANCIENT RUINS</h3>
+                        </div>
+                    </div>
+                    <!-- Arrow nav -->
+                    <button class="gallery-arrow arrow-prev" id="galleryPrev" onclick="galleryNav(-1)" aria-label="Previous">
+                        <svg width="20" height="20" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <polyline points="15 18 9 12 15 6"></polyline>
+                        </svg>
+                    </button>
+                    <button class="gallery-arrow arrow-next" id="galleryNext" onclick="galleryNav(1)" aria-label="Next">
+                        <svg width="20" height="20" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <polyline points="9 18 15 12 9 6"></polyline>
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Thumbnails -->
+                <div class="gallery-thumbs">
+                    <div class="thumb-item active" onclick="switchShot(0)" data-zone="ANCIENT RUINS" data-index="0">
+                        <div class="thumb-num">01</div>
+                        <img src="oyunpp.png" alt="Ancient Ruins" loading="lazy">
+                        <div class="thumb-overlay"></div>
+                    </div>
+                    <div class="thumb-item" onclick="switchShot(1)" data-zone="CRYOGENIC HOLD" data-index="1">
+                        <div class="thumb-num">02</div>
+                        <img src="oyunpp2.png" alt="Cryogenic Hold" loading="lazy">
+                        <div class="thumb-overlay"></div>
+                    </div>
+                    <div class="thumb-item" onclick="switchShot(2)" data-zone="MAGMA CORE" data-index="2">
+                        <div class="thumb-num">03</div>
+                        <img src="oyunpp3.png" alt="Magma Core" loading="lazy">
+                        <div class="thumb-overlay"></div>
+                    </div>
+                    <div class="thumb-item" onclick="switchShot(3)" data-zone="OMEGA CITY" data-index="3">
+                        <div class="thumb-num">04</div>
+                        <img src="oyunpp4.png" alt="Omega City" loading="lazy">
+                        <div class="thumb-overlay"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="features section-pad" id="features">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-tag">FEATURES</div>
+                <h2>Built Different</h2>
+                <p>Everything designed to give you an unforgettable experience.</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-row" data-aos="">
+                    <div class="feature-img-side">
+                        <div class="feature-img-wrap">
+                            <img src="oyunpp3.png" alt="Magma Core combat" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="feature-text-side">
+                        <div class="feature-tag">COMBAT ENGINE</div>
+                        <h3>Precision Pixel Combat</h3>
+                        <p>Frame-perfect hit detection, responsive controls, and deep animation systems deliver a
+                            fighting game quality you'd expect from a premium title.</p>
+                        <ul class="feature-list">
+                            <li>✦ 60FPS smooth gameplay</li>
+                            <li>✦ Energy blade combo system</li>
+                            <li>✦ Dodge & parry mechanics</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="feature-row reverse" data-aos="">
+                    <div class="feature-img-side">
+                        <div class="feature-img-wrap">
+                            <img src="oyunpp4.png" alt="Boss battle" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="feature-text-side">
+                        <div class="feature-tag">BOSS BATTLES</div>
+                        <h3>Screen-Filling Boss Fights</h3>
+                        <p>Every world culminates in a cinematic boss encounter. Giant mechs, ancient golems, and
+                            cyber-enhanced creatures that push your limits.</p>
+                        <ul class="feature-list">
+                            <li>✦ Multi-phase boss fights</li>
+                            <li>✦ Unique attack patterns</li>
+                            <li>✦ Epic pixel animations</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- DOWNLOAD -->
+    <section class="download-section section-pad" id="download">
+        <div class="download-bg-glow"></div>
+        <div class="container container-narrow">
+            <div class="download-content-reveal">
+                <h2 class="download-hero-title">
+                    The World is Frozen.<br>
+                    <span class="blue-glow-text">Will You Break the Ice?</span>
+                </h2>
+                <p class="download-description">
+                    Join thousands of players in the definitive 2D action experience of the year.
+                    Free to play. Forever optimized.
+                </p>
+
+                <div class="download-actions-wrap">
+                    <button class="btn-premium-download" id="mainDownloadBtn" onclick="triggerDownload()">
+                        <div class="btn-shine"></div>
+                        <div class="btn-inner">
+                            <svg width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"></path>
+                                <polyline points="7 10 12 15 17 10"></polyline>
+                                <line x1="12" y1="15" x2="12" y2="3"></line>
+                            </svg>
+                            <span class="btn-main-text">DOWNLOAD</span>
+                        </div>
+                    </button>
+
+                    <div class="download-platforms">
+                        <span class="platform-chip">
+                            <svg width="14" height="14" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                <rect x="2" y="3" width="20" height="14" rx="2"></rect>
+                                <line x1="8" y1="21" x2="16" y2="21"></line>
+                                <line x1="12" y1="17" x2="12" y2="21"></line>
+                            </svg>
+                            Windows
+                        </span>
+                        <span class="platform-chip">
+                            <svg width="14" height="14" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                            </svg>
+                            Verified Safe
+                        </span>
+                    </div>
+                </div>
+
+                <p class="download-footer-note">
+                    By downloading you agree to our <a href="#">Service Terms</a>.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-center">
+                    <a href="#" class="nav-logo">Combat<span class="title-accent">Runner</span></a>
+                    <p class="footer-desc">A relentless 2D action platformer. Brave the ice, master the blade, and
+                        reclaim the shadow.</p>
+                    <ul class="footer-nav">
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#screenshots">Screenshots</a></li>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#download">Download</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 CombatRunner. All rights reserved. <span class="v-tag">v1.0.4</span></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- DOWNLOAD TOAST -->
+    <div class="toast" id="downloadToast">
+        <svg width="20" height="20" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <polyline points="20 6 9 17 4 12"></polyline>
+        </svg>
+        <span>Download başlatılıyor…</span>
+    </div>
+
+    <script src="snow.js"></script>
+    <script src="main.js"></script>
+<script defer="" src="beacon.min.js/v8c78df7c7c0f484497ecbca7046644da1771523124516" integrity="sha512-8DS7rgIrAmghBFwoOTujcf6D9rXvH8xm8JQ1Ja01h9QX8EzXldiszufYa4IFfKdLUKTTrnSFXLDkUEOTrZQ8Qg==" data-cf-beacon='{"version":"2024.11.0","token":"897596ef2906461391ed2f7e1b0f5d52","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+</body>
+
+</html>
