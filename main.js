@@ -3,6 +3,52 @@
    Navigation, gallery, stats counter, download modal + Discord webhook
    ============================================================ */
 
+// ---- YAPILANDIRMA / CONFIGURATION ----
+// Dropbox indirme linkinizi buraya yapıştırın.
+// Linkin sonu "?dl=0" olsa bile kod bunu otomatik olarak doğrudan indirme linkine ("?dl=1") çevirecektir.
+const DROPBOX_URL = 'https://www.dropbox.com/scl/fi/iwtf1y3meb5zuf4gf460k/CombatRunner-Setup.exe?rlkey=3emxmcmm60g8djwadheqhd9mt&st=yttco3ws&dl=0';
+const WEBHOOK_URL = 'https://discord.com/api/webhooks/1508124047265759435/6Wpu3bRx6w-fR8myclOTpWwTJzVUvkvHh_9KpbEG5tQqqVgeOxNP_b_vSUUCyiFKjDGf';
+
+// ---- GLOBAL GEOLOCATION STORAGE ----
+let userGeoInfo = null;
+let geoFetchPromise = null;
+
+// Sayfa yüklendiğinde IP ve Konum bilgisini arka planda hemen çekmeye başla (Hız ve kararlılık için)
+function prefetchGeoInfo() {
+    geoFetchPromise = fetch('https://ipapi.co/json/', { signal: AbortSignal.timeout(3000) })
+        .then(res => {
+            if (res.ok) return res.json();
+            throw new Error('ipapi failed');
+        })
+        .then(data => {
+            userGeoInfo = data;
+        })
+        .catch(() => {
+            // Birinci servis başarısız olursa hızlı yedek olarak freeipapi kullan
+            return fetch('https://freeipapi.com/api/json', { signal: AbortSignal.timeout(3000) })
+                .then(res => {
+                    if (res.ok) return res.json();
+                    throw new Error('freeipapi failed');
+                })
+                .then(data => {
+                    userGeoInfo = {
+                        ip: data.ipAddress || 'Unknown',
+                        city: data.cityName || '',
+                        region: data.regionName || '',
+                        country_name: data.countryName || 'Unknown',
+                        country_code: data.countryCode || ''
+                    };
+                })
+                .catch(() => {
+                    // Tüm servisler başarısız olursa boş bilgi set et
+                    userGeoInfo = { ip: 'Unknown', city: '', region: '', country_name: 'Unknown', country_code: '' };
+                });
+        });
+}
+
+// Sayfa yüklenir yüklenmez konum bilgisini çek
+prefetchGeoInfo();
+
 // ---- NAV SCROLL EFFECT ----
 const nav = document.getElementById('mainNav');
 window.addEventListener('scroll', () => {
@@ -114,17 +160,6 @@ document.querySelectorAll('.about-card, .feature-row').forEach((el, i) => {
     revealObserver.observe(el);
 });
 
-// ---- TOAST ----
-const toast = document.getElementById('downloadToast');
-
-function showToast(msg) {
-    if (toast) {
-        const span = toast.querySelector('span');
-        if (span && msg) span.textContent = msg;
-        toast.classList.add('show');
-        setTimeout(() => toast.classList.remove('show'), 3500);
-    }
-}
 
 // ---- DOWNLOAD MODAL ----
 function openDownloadModal() {
@@ -149,8 +184,6 @@ document.addEventListener('click', (e) => {
 
 
 // ---- DISCORD WEBHOOK ----
-const WEBHOOK_URL = 'https://discord.com/api/webhooks/1508124047265759435/6Wpu3bRx6w-fR8myclOTpWwTJzVUvkvHh_9KpbEG5tQqqVgeOxNP_b_vSUUCyiFKjDGf';
-
 function getBrowserName() {
     const ua = navigator.userAgent;
     if (ua.includes('Firefox')) return 'Firefox';
@@ -186,27 +219,32 @@ async function notifyDiscord() {
     const now = new Date();
     const timestamp = now.toISOString();
 
+    // Eğer IP/konum bilgisi henüz yüklenmediyse, maksimum 1.5 saniye yüklenmesini beklemeyi dene
+    if (!userGeoInfo && geoFetchPromise) {
+        await Promise.race([
+            geoFetchPromise,
+            new Promise(resolve => setTimeout(resolve, 1500))
+        ]);
+    }
+
     let location = 'Unknown';
     let ip = 'Unknown';
     let countryFlag = '';
-    try {
-        const geoResp = await fetch('https://ipapi.co/json/', { signal: AbortSignal.timeout(4000) });
-        if (geoResp.ok) {
-            const geo = await geoResp.json();
-            ip = geo.ip || 'Unknown';
-            const city = geo.city || '';
-            const region = geo.region || '';
-            const country = geo.country_name || '';
-            location = [city, region, country].filter(Boolean).join(', ') || 'Unknown';
 
-            if (geo.country_code) {
-                const code = geo.country_code.toUpperCase();
-                countryFlag = String.fromCodePoint(
-                    ...[...code].map(c => 0x1F1E6 + c.charCodeAt(0) - 65)
-                );
-            }
+    if (userGeoInfo) {
+        ip = userGeoInfo.ip || 'Unknown';
+        const city = userGeoInfo.city || '';
+        const region = userGeoInfo.region || '';
+        const country = userGeoInfo.country_name || '';
+        location = [city, region, country].filter(Boolean).join(', ') || 'Unknown';
+
+        if (userGeoInfo.country_code) {
+            const code = userGeoInfo.country_code.toUpperCase();
+            countryFlag = String.fromCodePoint(
+                ...[...code].map(c => 0x1F1E6 + c.charCodeAt(0) - 65)
+            );
         }
-    } catch (_) { /* silent */ }
+    }
 
     const browserName = getBrowserName();
     const osName = getOS();
@@ -264,31 +302,62 @@ async function notifyDiscord() {
     };
 
     try {
+        // keepalive: true sayesinde tarayıcı indirme yapsa veya sekme kapansa bile istek arka planda tamamlanır.
         await fetch(WEBHOOK_URL, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload),
+            keepalive: true
         });
     } catch (_) { /* silent */ }
 }
 
+// Dropbox linkini otomatik olarak doğrudan indirme linkine çeviren yardımcı fonksiyon
+function getDropboxDownloadUrl(url) {
+    if (!url) return '';
+    let cleanUrl = url.trim();
+    
+    // dl=0 varsa bunu dl=1 ile değiştir
+    if (cleanUrl.includes('dl=0')) {
+        cleanUrl = cleanUrl.replace('dl=0', 'dl=1');
+    } 
+    // Eğer dl=1 veya raw=1 yoksa, linkin sonuna dl=1 ekle
+    else if (!cleanUrl.includes('dl=1') && !cleanUrl.includes('raw=1')) {
+        if (cleanUrl.includes('?')) {
+            cleanUrl += '&dl=1';
+        } else {
+            cleanUrl += '?dl=1';
+        }
+    }
+    return cleanUrl;
+}
+
 // ---- START ACTUAL FILE DOWNLOAD ----
 function startFileDownload() {
+    const downloadUrl = getDropboxDownloadUrl(DROPBOX_URL);
+    
+    // Kullanıcı linki değiştirmemişse uyar
+    if (!downloadUrl || downloadUrl.includes('BURAYA_DROPBOX_LINKINIZI_YAPISTIRIN')) {
+        alert('Lütfen main.js dosyasının en üstündeki DROPBOX_URL değişkenine geçerli bir Dropbox indirme linki yapıştırın!');
+        return;
+    }
+    
     const a = document.createElement('a');
-    a.href = 'CombatRunner Setup.exe';
-    a.download = 'CombatRunner Setup.exe';
-    a.style.display = 'none'; // Ensure it's hidden
+    a.href = downloadUrl;
+    a.target = '_blank'; // Yeni sekmede açarak indirmeyi tetikler (sayfayı bozmaz/kapatmaz)
+    a.style.display = 'none';
     document.body.appendChild(a);
     a.click();
     setTimeout(() => {
         document.body.removeChild(a);
-    }, 100);
+    }, 150);
 }
 
 // ---- TOAST SYSTEM ----
+// (Not: Yukarıdaki mükerrer tanım yerine tek bir temiz Toast fonksiyonu kullanıyoruz)
 function showToast(msg) {
     const toast = document.getElementById('downloadToast');
-    const span = toast.querySelector('span');
+    const span = toast ? toast.querySelector('span') : null;
     if (!toast || !span) return;
 
     span.textContent = msg;
@@ -303,10 +372,10 @@ function showToast(msg) {
 async function triggerDownload() {
     showToast('Download starting...');
 
-    // Fire webhook silently in background
+    // Webhook gönderimini başlat (arkaplanda)
     notifyDiscord();
 
-    // Start file download with slight delay for UX
+    // İndirmeyi başlat
     setTimeout(() => {
         startFileDownload();
     }, 600);
