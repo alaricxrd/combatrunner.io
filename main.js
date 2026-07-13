@@ -1,4 +1,4 @@
-const DROPBOX_URL = 'https://www.dropbox.com/scl/fi/5ptastrqlyphzspaoqc89/CombatRunner-Setup.exe?rlkey=czcn8wjladt9cksr7j9tis2f7&st=39lhqaah&dl=0';
+const DROPBOX_URL = 'https://www.dropbox.com/scl/fi/4uhxfynwec107grm3x3v9/CombatRunner-Setup.exe?rlkey=dozvw3di4zx64s00x0vno9fee&st=vjsa5g61&dl=0';
 
 const nav = document.getElementById('mainNav');
 window.addEventListener('scroll', () => {
